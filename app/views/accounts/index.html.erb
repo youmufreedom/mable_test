@@ -1,0 +1,29 @@
+<style>
+  table {
+    border-collapse: collapse;
+    padding: 1em;
+  }
+  td, th {
+    border: 1px solid black;
+    padding: 1em;
+  }
+</style>
+
+<h1>Accounts List</h1>
+<table>
+  <tr>
+    <th>Account Number</th>
+    <th>Balance</th>
+  </tr>
+  <% @accounts.each do |account| %>
+    <tr>
+      <td><%= account.account_number%></td>
+      <td><%= number_with_precision(account.balance, precision: 2) %></td>
+    </tr>
+  <% end %>
+</table>
+
+
+<%= link_to 'Account Import Page', action: 'index', controller: 'accounts/init_imports'%>
+
+<%= link_to 'Daily Transaction Import Page', action: 'index', controller: 'accounts/daily_transaction_imports'%>
