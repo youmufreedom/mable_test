@@ -1,5 +1,7 @@
 <h2>Daily Transaction Imports</h2>
-<%= form_tag accounts_init_imports_path, method: :post, multipart: true do %>
-  <%= file_field_tag :file, accept: ".csv" %>
-  <%= submit_tag 'Import' %>
+
+<% flash.each do |name, msg| %>
+  <%= content_tag :div, msg, class: "alert alert-info" %>
 <% end %>
+<%= render "import_form" %>
+<%= link_to 'Back', root_path %>

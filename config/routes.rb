@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   resources :accounts, only: %i[index]
 
   namespace :accounts do
-    resources :init_imports, controller: 'init_imports', only: %i[index create]
+    resources :imports, controller: 'imports', only: %i[index create]
     resources :daily_transaction_imports, controller: 'daily_transaction_imports', only: %i[index create]
   end
 end

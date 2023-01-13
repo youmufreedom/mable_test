@@ -15,12 +15,12 @@ class AccountCsvImportService
         account_hash[:account_number] = row[0]
         account_hash[:balance] = row[1]
 
-        Account.find_or_create_by(account_hash)
+        Account.create!(account_hash)
       end
     end
   rescue ActiveRecord::RecordInvalid
     raise AccountCreateError, 'Oops. Input file data invalid!'
   rescue ActiveRecord::RecordNotUnique
-    raise AccountCreateError, 'Oops, Account already exists'
+    raise AccountCreateError, 'Oops, Account already exists or records duplicated'
   end
 end
