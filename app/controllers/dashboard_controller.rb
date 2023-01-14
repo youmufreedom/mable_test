@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class AccountsController < ApplicationController
+class DashboardController < ApplicationController
   before_action :accounts, only: %i[index]
 
   def index; end

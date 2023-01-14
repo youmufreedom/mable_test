@@ -4,11 +4,11 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "articles#index"
 
-  root 'accounts#index'
-  resources :accounts, only: %i[index]
+  root 'dashboard#index'
+  get 'dashboard/index'
 
   namespace :accounts do
-    resources :imports, controller: 'imports', only: %i[index create]
-    resources :daily_transaction_imports, controller: 'daily_transaction_imports', only: %i[index create]
+    resources :account_imports, only: %i[index create]
+    resources :daily_transaction_imports, only: %i[index create]
   end
 end

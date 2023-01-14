@@ -6,7 +6,7 @@ class Accounts::DailyTransactionImportsController < ApplicationController
     return redirect_to accounts_daily_transaction_imports_path, notice: 'Only CSV files allowed' unless params[:file].content_type == 'text/csv'
 
     begin
-      DailyTransactionCsvImportService.new.call(params[:file])
+      DailyTransactionCsvImportService.call(params[:file])
       redirect_to accounts_daily_transaction_imports_path, notice: 'Records Import successfully'
     rescue DailyTransactionCsvImportService::TransactionCreateError => e
       redirect_to accounts_daily_transaction_imports_path, notice: e.message

@@ -1,4 +1,0 @@
-<%= form_tag accounts_imports_path, method: :post, multipart: true, remote: true do %>
-  <%= file_field_tag :file, accept: ".csv" %>
-  <%= submit_tag 'Import' %>
-<% end %>
