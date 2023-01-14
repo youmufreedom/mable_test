@@ -12,7 +12,7 @@
 
 ActiveRecord::Schema[7.0].define(version: 2023_01_12_135009) do
   create_table "accounts", force: :cascade do |t|
-    t.bigint "account_number", null: false
+    t.string "account_number", null: false
     t.decimal "balance", precision: 8, scale: 2, default: "0.0", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

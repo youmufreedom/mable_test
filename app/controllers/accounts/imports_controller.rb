@@ -6,7 +6,7 @@ class Accounts::ImportsController < ApplicationController
     return redirect_to accounts_imports_path, notice: 'Only CSV files allowed' unless params[:file].content_type == 'text/csv'
 
     begin
-      AccountCsvImportService.new.call(params[:file])
+      AccountCsvImportService.call(params[:file])
       redirect_to accounts_imports_path, notice: 'Records Import successfully'
     rescue AccountCsvImportService::AccountCreateError => e
       redirect_to accounts_imports_path, notice: e.message

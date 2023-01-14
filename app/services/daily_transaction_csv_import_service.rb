@@ -1,12 +1,16 @@
 # frozen_string_literal: true
 
-class DailyTransactionCsvImportService
+class DailyTransactionCsvImportService < BaseService
   require 'csv'
 
   class TransactionCreateError < StandardError; end
 
-  def call(file)
-    opened_file = File.open(file)
+  def initialize(file)
+    @file = file
+  end
+
+  def call
+    opened_file = File.open(@file)
     options = { headers: false, col_sep: ',' }
 
     ActiveRecord::Base.transaction do
@@ -20,10 +24,10 @@ class DailyTransactionCsvImportService
 
   def create_transaction(payer_account_number, payee_account_number, amount, line)
     payer = Account.find_by(account_number: payer_account_number)
-    raise TransactionCreateError, "Oops. Line #{line} Payer not exist!" unless payer
+    raise TransactionCreateError, "Oops. Line #{line} Payer not exist!" unless payer.present?
 
     payee = Account.find_by(account_number: payee_account_number)
-    raise TransactionCreateError, "Oops. Line #{line} Payer not exist!" unless payee
+    raise TransactionCreateError, "Oops. Line #{line} Payee not exist!" unless payee.present?
 
     raise TransactionCreateError, "Oops, Please correct Line #{line} amount" unless amount.positive?
     raise TransactionCreateError, "Oops, Line #{line} Payer insufficient balance" if payer.balance < amount

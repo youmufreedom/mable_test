@@ -1,12 +1,16 @@
 # frozen_string_literal: true
 
-class AccountCsvImportService
+class AccountCsvImportService < BaseService
   require 'csv'
 
   class AccountCreateError < StandardError; end
 
-  def call(file)
-    opened_file = File.open(file)
+  def initialize(file)
+    @file = file
+  end
+
+  def call
+    opened_file = File.open(@file)
     options = { headers: false, col_sep: ',' }
 
     ActiveRecord::Base.transaction do
@@ -14,7 +18,6 @@ class AccountCsvImportService
         account_hash = {}
         account_hash[:account_number] = row[0]
         account_hash[:balance] = row[1]
-
         Account.create!(account_hash)
       end
     end
